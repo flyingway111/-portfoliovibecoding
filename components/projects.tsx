@@ -1,4 +1,4 @@
-import { Bot, ShoppingBag, Layers, ExternalLink } from 'lucide-react'
+import { Bot, ShoppingBag, Layers, ExternalLink, Scissors } from 'lucide-react'
 
 const services = [
   {
@@ -58,7 +58,7 @@ export default function Projects() {
             Проекты
           </h2>
 
-          <div className="grid gap-6 sm:grid-cols-2">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {/* Project 1 */}
             <a
               href="https://fitness-ai-self.vercel.app/"
@@ -108,6 +108,34 @@ export default function Projects() {
               </div>
               <div className="flex flex-wrap gap-2">
                 {['Next.js', 'Supabase', 'Telegram Mini App'].map((tag) => (
+                  <span key={tag} className="rounded-full border border-border px-3 py-0.5 font-mono text-xs text-muted-foreground">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </a>
+
+            {/* Project 3 */}
+            <a
+              href="https://brutal-cutt.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative flex flex-col gap-4 rounded-2xl border border-border bg-card p-6 transition-colors hover:border-primary/50"
+            >
+              <div className="flex items-center justify-between">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <Scissors size={20} />
+                </span>
+                <ExternalLink size={16} className="text-muted-foreground/40 transition-colors group-hover:text-primary" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-foreground">BRUTAL CUT</h3>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Лендинг для барбершопа с анимациями, секцией услуг, мастеров и онлайн записью через Telegram.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {['Next.js', 'Tailwind', 'Лендинг'].map((tag) => (
                   <span key={tag} className="rounded-full border border-border px-3 py-0.5 font-mono text-xs text-muted-foreground">
                     {tag}
                   </span>
