@@ -88,19 +88,32 @@ export default function Projects() {
             </a>
 
             {/* Project 2 */}
-            <div className="flex flex-col gap-4 rounded-2xl border border-border border-dashed bg-card/50 p-6">
+            <a
+              href="https://shop-miniapp-six.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative flex flex-col gap-4 rounded-2xl border border-border bg-card p-6 transition-colors hover:border-primary/50"
+            >
               <div className="flex items-center justify-between">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-muted text-muted-foreground">
-                  <Layers size={20} />
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <ShoppingBag size={20} />
                 </span>
+                <ExternalLink size={16} className="text-muted-foreground/40 transition-colors group-hover:text-primary" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-foreground/40">Следующий проект</h3>
-                <p className="mt-1 text-sm text-muted-foreground/40">
-                  Скоро появится здесь. Напишите мне чтобы обсудить ваш проект.
+                <h3 className="text-lg font-semibold text-foreground">SHOP Mini App</h3>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Интернет-магазин одежды в формате Telegram Mini App. Каталог, корзина, избранное и оформление заказа.
                 </p>
               </div>
-            </div>
+              <div className="flex flex-wrap gap-2">
+                {['Next.js', 'Supabase', 'Telegram Mini App'].map((tag) => (
+                  <span key={tag} className="rounded-full border border-border px-3 py-0.5 font-mono text-xs text-muted-foreground">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </a>
           </div>
         </div>
       </div>
