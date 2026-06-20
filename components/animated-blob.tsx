@@ -1,8 +1,10 @@
 'use client'
 
+import type { CSSProperties } from 'react'
+
 interface BlobProps {
   size?: number
-  style?: React.CSSProperties
+  style?: CSSProperties
   intensity?: 'soft' | 'strong'
 }
 
