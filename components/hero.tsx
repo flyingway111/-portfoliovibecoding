@@ -1,9 +1,6 @@
 'use client'
 
-import { useEffect, useState, Suspense } from 'react'
-import dynamic from 'next/dynamic'
-
-const Spline = dynamic(() => import('@splinetool/react-spline'), { ssr: false })
+import { useEffect, useState } from 'react'
 
 const roles = ['developer', 'bot builder', 'разработчик', 'tg ecosystem']
 
@@ -37,15 +34,17 @@ export default function Hero() {
       style={{ position: 'relative', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center', padding: '0 24px', paddingTop: '96px', overflow: 'hidden' }}
       aria-label="Hero"
     >
-      {/* Spline — full screen background */}
-      <div aria-hidden style={{ position: 'absolute', inset: 0, zIndex: 0, width: '100vw', height: '100vh' }}>
-        <Suspense fallback={null}>
-          <Spline
-            scene="https://prod.spline.design/tKUjHFyln8mYDJbs/scene.splinecode"
-            style={{ width: '100vw', height: '100vh', display: 'block' }}
-          />
-        </Suspense>
-      </div>
+      {/* Spline — full screen background via iframe */}
+      <iframe
+        aria-hidden
+        src="https://my.spline.design/tKUjHFyln8mYDJbs/"
+        frameBorder="0"
+        style={{
+          position: 'absolute', inset: 0, zIndex: 0,
+          width: '100%', height: '100%', border: 'none',
+          pointerEvents: 'none',
+        }}
+      />
 
       {/* Dark overlay so text is readable */}
       <div aria-hidden style={{

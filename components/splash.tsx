@@ -1,9 +1,6 @@
 'use client'
 
-import { useEffect, useState, Suspense } from 'react'
-import dynamic from 'next/dynamic'
-
-const Spline = dynamic(() => import('@splinetool/react-spline'), { ssr: false })
+import { useEffect, useState } from 'react'
 
 const CHARS = 'ABCDEFGHIJKabcdef0123456789@#$%&'
 const TARGET = 'flyingway'
@@ -48,15 +45,15 @@ export default function Splash({ onDone }: { onDone: () => void }) {
         overflow: 'hidden',
       }}
     >
-      {/* Spline full screen */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: 0, width: '100vw', height: '100vh' }}>
-        <Suspense fallback={null}>
-          <Spline
-            scene="https://prod.spline.design/tKUjHFyln8mYDJbs/scene.splinecode"
-            style={{ width: '100vw', height: '100vh', display: 'block' }}
-          />
-        </Suspense>
-      </div>
+      {/* Spline full screen via iframe */}
+      <iframe
+        src="https://my.spline.design/tKUjHFyln8mYDJbs/"
+        frameBorder="0"
+        style={{
+          position: 'absolute', inset: 0, zIndex: 0,
+          width: '100%', height: '100%', border: 'none',
+        }}
+      />
 
       {/* Dark overlay */}
       <div style={{
