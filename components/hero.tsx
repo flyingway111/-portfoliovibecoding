@@ -35,14 +35,17 @@ export default function Hero() {
       style={{ position: 'relative', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center', padding: '0 24px', paddingTop: '96px', overflow: 'hidden' }}
       aria-label="Hero"
     >
-      {/* Animated blob — overlaps text */}
+      {/* Animated blob — ON TOP of text, underwater effect */}
       <AnimatedBlob
         size={820}
         style={{
           position: 'absolute',
           left: '-60px', top: '50%',
           transform: 'translateY(-50%)',
-          zIndex: 0,
+          zIndex: 4,
+          opacity: 0.55,
+          backdropFilter: 'blur(2px)',
+          pointerEvents: 'none',
         }}
       />
 
@@ -86,8 +89,7 @@ export default function Hero() {
           fontSize: 'clamp(52px, 10vw, 108px)',
           fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 0.95,
           color: 'oklch(0.93 0 0)', marginBottom: '20px',
-          textShadow: '0 0 40px rgba(125,211,252,0.5), 0 0 80px rgba(99,102,241,0.3)',
-          position: 'relative', zIndex: 3,
+          position: 'relative', zIndex: 2,
         }}>
           flyingway
         </h1>
