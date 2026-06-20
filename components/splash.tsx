@@ -49,11 +49,11 @@ export default function Splash({ onDone }: { onDone: () => void }) {
       }}
     >
       {/* Spline full screen */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+      <div style={{ position: 'absolute', inset: 0, zIndex: 0, width: '100vw', height: '100vh' }}>
         <Suspense fallback={null}>
           <Spline
             scene="https://prod.spline.design/tKUjHFyln8mYDJbs/scene.splinecode"
-            style={{ width: '100%', height: '100%' }}
+            style={{ width: '100vw', height: '100vh', display: 'block' }}
           />
         </Suspense>
       </div>
