@@ -35,16 +35,14 @@ export default function Hero() {
       style={{ position: 'relative', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center', padding: '0 24px', paddingTop: '96px', overflow: 'hidden' }}
       aria-label="Hero"
     >
-      {/* Animated blob — ON TOP of text, underwater effect */}
+      {/* Water drop — centered over text */}
       <AnimatedBlob
-        size={820}
+        size={750}
         style={{
           position: 'absolute',
-          left: '-60px', top: '50%',
-          transform: 'translateY(-50%)',
+          left: '50%', top: '50%',
+          transform: 'translate(-55%, -50%)',
           zIndex: 4,
-          opacity: 0.55,
-          backdropFilter: 'blur(2px)',
           pointerEvents: 'none',
         }}
       />
