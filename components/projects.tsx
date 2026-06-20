@@ -1,4 +1,4 @@
-import { Bot, ShoppingBag, Layers, ExternalLink, Scissors } from 'lucide-react'
+import { Bot, ShoppingBag, Layers, ExternalLink, Scissors, UtensilsCrossed } from 'lucide-react'
 
 const services = [
   {
@@ -132,6 +132,33 @@ export default function Projects() {
                 <h3 className="text-lg font-semibold text-foreground">BRUTAL CUT</h3>
                 <p className="mt-1 text-sm text-muted-foreground">
                   Лендинг для барбершопа с анимациями, секцией услуг, мастеров и онлайн записью через Telegram.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {['Next.js', 'Tailwind', 'Лендинг'].map((tag) => (
+                  <span key={tag} className="rounded-full border border-border px-3 py-0.5 font-mono text-xs text-muted-foreground">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </a>
+            {/* Project 4 */}
+            <a
+              href="https://mizuna-landing.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative flex flex-col gap-4 rounded-2xl border border-border bg-card p-6 transition-colors hover:border-primary/50"
+            >
+              <div className="flex items-center justify-between">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <UtensilsCrossed size={20} />
+                </span>
+                <ExternalLink size={16} className="text-muted-foreground/40 transition-colors group-hover:text-primary" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-foreground">MIZUNA</h3>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Премиальный лендинг для сети паназиатских ресторанов в Москве. Анимация катаны, лепестки сакуры, параллакс.
                 </p>
               </div>
               <div className="flex flex-wrap gap-2">
