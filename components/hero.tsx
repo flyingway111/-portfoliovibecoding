@@ -35,21 +35,21 @@ export default function Hero() {
       style={{ position: 'relative', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center', padding: '0 24px', paddingTop: '96px', overflow: 'hidden' }}
       aria-label="Hero"
     >
-      {/* Animated blob — right side */}
+      {/* Animated blob — overlaps text */}
       <AnimatedBlob
-        size={700}
+        size={820}
         style={{
           position: 'absolute',
-          right: '-120px', top: '50%',
+          left: '-60px', top: '50%',
           transform: 'translateY(-50%)',
           zIndex: 0,
         }}
       />
 
-      {/* Dark overlay so text is readable */}
+      {/* Subtle vignette only at edges */}
       <div aria-hidden style={{
-        position: 'absolute', inset: 0, zIndex: 1,
-        background: 'linear-gradient(110deg, rgba(8,10,15,0.92) 0%, rgba(8,10,15,0.75) 50%, rgba(8,10,15,0.2) 100%)',
+        position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
+        background: 'radial-gradient(ellipse at center, transparent 30%, rgba(8,10,15,0.7) 100%)',
       }} />
 
       {/* Grid */}
@@ -86,6 +86,8 @@ export default function Hero() {
           fontSize: 'clamp(52px, 10vw, 108px)',
           fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 0.95,
           color: 'oklch(0.93 0 0)', marginBottom: '20px',
+          textShadow: '0 0 40px rgba(125,211,252,0.5), 0 0 80px rgba(99,102,241,0.3)',
+          position: 'relative', zIndex: 3,
         }}>
           flyingway
         </h1>
