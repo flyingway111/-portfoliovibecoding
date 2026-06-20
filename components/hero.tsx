@@ -1,6 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
+import dynamic from 'next/dynamic'
+
+const Spline = dynamic(() => import('@splinetool/react-spline'), { ssr: false })
 
 const roles = ['developer', 'bot builder', 'разработчик', 'tg ecosystem']
 
@@ -56,13 +59,18 @@ export default function Hero() {
         backgroundSize: '64px 64px',
       }} />
 
-      {/* Accent glow */}
+      {/* Spline 3D scene */}
       <div aria-hidden style={{
-        position: 'absolute', left: '-5%', top: '20%',
-        width: '400px', height: '400px', borderRadius: '50%',
-        background: 'oklch(0.78 0.15 195)',
-        opacity: 0.06, filter: 'blur(80px)', pointerEvents: 'none',
-      }} />
+        position: 'absolute', right: '-5%', top: '50%',
+        transform: 'translateY(-50%)',
+        width: '55%', height: '80%',
+        pointerEvents: 'none',
+        opacity: 0.9,
+      }}>
+        <Suspense fallback={null}>
+          <Spline scene="https://prod.spline.design/tKUjHFyln8mYDJbs/scene.splinecode" />
+        </Suspense>
+      </div>
 
       {/* Floating code windows */}
       {codeWindows.map((win, i) => (
