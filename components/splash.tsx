@@ -49,7 +49,7 @@ export default function Splash({ onDone }: { onDone: () => void }) {
     >
       {/* Blob centered full screen */}
       <AnimatedBlob
-        size={Math.min(window?.innerWidth ?? 700, 800)}
+        size={700}
         intensity="strong"
         style={{
           position: 'absolute',
