@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 
 const links = [
-  { label: 'Услуги', href: '#projects' },
+  { label: 'Проекты', href: '#projects' },
   { label: 'Контакты', href: '#contact' },
 ]
 
@@ -11,35 +11,60 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 20)
+    const handler = () => setScrolled(window.scrollY > 40)
     window.addEventListener('scroll', handler)
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'border-b border-border bg-background/80 backdrop-blur-md' : 'bg-transparent'
-      }`}
-    >
+    <header style={{
+      position: 'fixed', top: '16px', left: '50%',
+      transform: 'translateX(-50%)',
+      zIndex: 50,
+      width: 'calc(100% - 48px)',
+      maxWidth: '860px',
+      transition: 'all 0.3s ease',
+    }}>
       <nav
-        className="mx-auto flex max-w-4xl items-center justify-between px-6 py-5"
         aria-label="Main navigation"
+        style={{
+          background: scrolled ? 'rgba(8,10,15,0.88)' : 'rgba(8,10,15,0.6)',
+          backdropFilter: 'blur(16px)',
+          border: `1px solid ${scrolled ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.06)'}`,
+          borderRadius: '100px',
+          padding: '12px 24px',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          transition: 'all 0.3s ease',
+        }}
       >
         <a
           href="#"
-          className="font-mono text-sm text-foreground transition-colors hover:text-primary"
-          aria-label="flyingway home"
+          style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '13px',
+            color: 'oklch(0.93 0 0)',
+            textDecoration: 'none',
+          }}
         >
-          flyingway<span className="text-primary">.</span>
+          flyingway<span style={{ color: 'oklch(0.78 0.15 195)' }}>.</span>
         </a>
 
-        <ul className="flex items-center gap-8" role="list">
-          {links.map((link) => (
+        <ul style={{ display: 'flex', gap: '32px', listStyle: 'none', margin: 0, padding: 0 }}>
+          {links.map(link => (
             <li key={link.href}>
               <a
                 href={link.href}
-                className="font-mono text-xs uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '11px',
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  color: 'oklch(0.52 0 0)',
+                  textDecoration: 'none',
+                  transition: 'color 0.2s',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.color = 'oklch(0.93 0 0)')}
+                onMouseLeave={e => (e.currentTarget.style.color = 'oklch(0.52 0 0)')}
               >
                 {link.label}
               </a>

@@ -1,9 +1,23 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { ArrowDown } from 'lucide-react'
 
 const roles = ['developer', 'bot builder', 'разработчик', 'tg ecosystem']
+
+const codeWindows = [
+  {
+    lines: ['const bot = new Bot(token)', 'bot.on("message", handle)', 'await bot.start()'],
+    style: { top: '18%', left: '2%', rotate: '-3deg' },
+  },
+  {
+    lines: ['npm run deploy', '✓ Build complete', '→ deployed to vercel'],
+    style: { top: '12%', right: '3%', rotate: '2deg' },
+  },
+  {
+    lines: ['<MiniApp>', '  <Catalog />', '  <Cart />', '</MiniApp>'],
+    style: { bottom: '22%', right: '2%', rotate: '-1.5deg' },
+  },
+]
 
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0)
@@ -13,86 +27,157 @@ export default function Hero() {
   useEffect(() => {
     const current = roles[roleIndex]
     let timeout: ReturnType<typeof setTimeout>
-
     if (typing) {
       if (displayed.length < current.length) {
         timeout = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), 80)
       } else {
-        timeout = setTimeout(() => setTyping(false), 2000)
+        timeout = setTimeout(() => setTyping(false), 2200)
       }
     } else {
       if (displayed.length > 0) {
         timeout = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 45)
       } else {
-        setRoleIndex((i) => (i + 1) % roles.length)
+        setRoleIndex(i => (i + 1) % roles.length)
         setTyping(true)
       }
     }
-
     return () => clearTimeout(timeout)
   }, [displayed, typing, roleIndex])
 
   return (
     <section
-      className="relative flex min-h-screen flex-col items-start justify-center px-6 pt-24"
-      aria-label="Hero section"
+      style={{ position: 'relative', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center', padding: '0 24px', paddingTop: '96px', overflow: 'hidden' }}
+      aria-label="Hero"
     >
-      {/* Background grid */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 overflow-hidden"
-        style={{
-          backgroundImage:
-            'linear-gradient(oklch(1 0 0 / 3%) 1px, transparent 1px), linear-gradient(90deg, oklch(1 0 0 / 3%) 1px, transparent 1px)',
-          backgroundSize: '64px 64px',
-        }}
-      />
+      {/* Grid background */}
+      <div aria-hidden style={{
+        position: 'absolute', inset: 0, pointerEvents: 'none',
+        backgroundImage: 'linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)',
+        backgroundSize: '64px 64px',
+      }} />
 
       {/* Accent glow */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-0 top-1/4 h-72 w-72 rounded-full opacity-10 blur-3xl"
-        style={{ background: 'oklch(0.78 0.15 195)' }}
-      />
+      <div aria-hidden style={{
+        position: 'absolute', left: '-5%', top: '20%',
+        width: '400px', height: '400px', borderRadius: '50%',
+        background: 'oklch(0.78 0.15 195)',
+        opacity: 0.06, filter: 'blur(80px)', pointerEvents: 'none',
+      }} />
 
-      <div className="relative mx-auto w-full max-w-4xl">
+      {/* Floating code windows */}
+      {codeWindows.map((win, i) => (
+        <div key={i} aria-hidden style={{
+          position: 'absolute',
+          ...win.style,
+          opacity: 0.06,
+          filter: 'blur(0.5px)',
+          background: 'rgba(14,17,23,0.9)',
+          border: '1px solid rgba(255,255,255,0.08)',
+          borderRadius: '10px',
+          padding: '14px 18px',
+          fontFamily: 'var(--font-mono)',
+          fontSize: '11px',
+          color: 'oklch(0.78 0.15 195)',
+          lineHeight: 1.7,
+          transform: `rotate(${win.style.rotate})`,
+          pointerEvents: 'none',
+          userSelect: 'none',
+          display: 'none',
+        }}
+          className="md-show"
+        >
+          {win.lines.map((line, j) => <div key={j}>{line}</div>)}
+        </div>
+      ))}
+
+      <div style={{ position: 'relative', width: '100%', maxWidth: '860px', margin: '0 auto' }}>
         {/* Status pill */}
-        <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-border bg-muted px-3 py-1">
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+        <div style={{
+          display: 'inline-flex', alignItems: 'center', gap: '8px',
+          borderRadius: '100px', border: '1px solid rgba(255,255,255,0.08)',
+          background: 'rgba(255,255,255,0.03)',
+          padding: '5px 14px', marginBottom: '32px',
+        }}>
+          <span style={{ position: 'relative', display: 'flex', width: '7px', height: '7px' }}>
+            <span style={{
+              position: 'absolute', inset: 0, borderRadius: '50%',
+              background: 'oklch(0.78 0.15 195)',
+              animation: 'ping 1.5s ease-in-out infinite', opacity: 0.6,
+            }} />
+            <span style={{
+              position: 'relative', width: '7px', height: '7px', borderRadius: '50%',
+              background: 'oklch(0.78 0.15 195)',
+            }} />
           </span>
-          <span className="font-mono text-xs text-muted-foreground">открыт для проектов</span>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'oklch(0.52 0 0)', letterSpacing: '0.05em' }}>
+            открыт для проектов
+          </span>
         </div>
 
         {/* Name */}
-        <h1 className="text-pretty mb-4 text-6xl font-bold leading-none tracking-tight text-foreground sm:text-7xl md:text-8xl">
+        <h1 style={{
+          fontSize: 'clamp(52px, 10vw, 108px)',
+          fontWeight: 800,
+          letterSpacing: '-0.04em',
+          lineHeight: 0.95,
+          color: 'oklch(0.93 0 0)',
+          marginBottom: '20px',
+        }}>
           flyingway
         </h1>
 
-        {/* Typewriter role */}
-        <p className="mb-6 flex items-center gap-1 font-mono text-xl text-primary sm:text-2xl">
+        {/* Typewriter */}
+        <p style={{
+          fontFamily: 'var(--font-mono)',
+          fontSize: 'clamp(18px, 3vw, 24px)',
+          color: 'oklch(0.78 0.15 195)',
+          marginBottom: '24px',
+          display: 'flex', alignItems: 'center', gap: '4px',
+        }}>
           <span aria-live="polite">{displayed}</span>
-          <span className="animate-pulse text-primary">|</span>
+          <span style={{ animation: 'blink 1s step-end infinite', color: 'oklch(0.78 0.15 195)' }}>|</span>
         </p>
 
         {/* Bio */}
-        <p className="max-w-xl text-pretty leading-relaxed text-muted-foreground">
-          Создаю проекты для Telegram — от умных ботов для записи до готовых мини-приложений. Чистый код,
-          хороший вайб, быстрая доставка.
+        <p style={{
+          maxWidth: '480px', lineHeight: 1.75,
+          color: 'oklch(0.52 0 0)', fontSize: '16px',
+        }}>
+          Создаю проекты для Telegram — от умных ботов для записи до готовых мини-приложений.
+          Чистый код, хороший вайб, быстрая доставка.
         </p>
 
         {/* CTAs */}
-        <div className="mt-10 flex flex-wrap gap-4">
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '40px' }}>
           <a
             href="#projects"
-            className="inline-flex items-center gap-2 rounded border border-primary bg-primary px-5 py-2.5 font-mono text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: '8px',
+              padding: '12px 24px', borderRadius: '100px',
+              background: 'oklch(0.78 0.15 195)',
+              color: 'oklch(0.1 0 0)',
+              fontFamily: 'var(--font-mono)', fontSize: '13px', fontWeight: 600,
+              textDecoration: 'none',
+              transition: 'opacity 0.2s, transform 0.2s',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.opacity = '0.85'; e.currentTarget.style.transform = 'translateY(-2px)' }}
+            onMouseLeave={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.transform = 'translateY(0)' }}
           >
             Смотреть проекты
           </a>
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 rounded border border-border px-5 py-2.5 font-mono text-sm font-medium text-muted-foreground transition-colors hover:border-foreground hover:text-foreground"
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: '8px',
+              padding: '12px 24px', borderRadius: '100px',
+              border: '1px solid rgba(255,255,255,0.1)',
+              color: 'oklch(0.52 0 0)',
+              fontFamily: 'var(--font-mono)', fontSize: '13px',
+              textDecoration: 'none',
+              transition: 'border-color 0.2s, color 0.2s, transform 0.2s',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'; e.currentTarget.style.color = 'oklch(0.93 0 0)'; e.currentTarget.style.transform = 'translateY(-2px)' }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = 'oklch(0.52 0 0)'; e.currentTarget.style.transform = 'translateY(0)' }}
           >
             Написать мне
           </a>
@@ -100,9 +185,14 @@ export default function Hero() {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-muted-foreground">
-        <ArrowDown size={16} aria-hidden="true" />
-        <span className="sr-only">Scroll down</span>
+      <div style={{
+        position: 'absolute', bottom: '32px', left: '50%', transform: 'translateX(-50%)',
+        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px',
+        animation: 'float-down 2s ease-in-out infinite',
+        color: 'oklch(0.35 0 0)',
+      }}>
+        <div style={{ width: '1px', height: '40px', background: 'linear-gradient(to bottom, transparent, oklch(0.35 0 0))' }} />
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', letterSpacing: '0.2em', textTransform: 'uppercase' }}>scroll</span>
       </div>
     </section>
   )
