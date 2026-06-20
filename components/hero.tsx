@@ -35,22 +35,30 @@ export default function Hero() {
       style={{ position: 'relative', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center', padding: '0 24px', paddingTop: '96px', overflow: 'hidden' }}
       aria-label="Hero"
     >
-      {/* Water drop — centered over text */}
+      {/* Blob — behind text, right side ambient glow */}
       <AnimatedBlob
-        size={750}
+        size={700}
         style={{
           position: 'absolute',
-          left: '50%', top: '50%',
-          transform: 'translate(-55%, -50%)',
-          zIndex: 4,
+          right: '-80px', top: '50%',
+          transform: 'translateY(-50%)',
+          zIndex: 0,
+          opacity: 0.7,
           pointerEvents: 'none',
         }}
       />
+      {/* Second smaller glow — top left accent */}
+      <div aria-hidden style={{
+        position: 'absolute', top: '-100px', left: '-100px',
+        width: '400px', height: '400px', borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%)',
+        filter: 'blur(60px)', zIndex: 0, pointerEvents: 'none',
+      }} />
 
-      {/* Subtle vignette only at edges */}
+      {/* Edge vignette */}
       <div aria-hidden style={{
         position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
-        background: 'radial-gradient(ellipse at center, transparent 30%, rgba(8,10,15,0.7) 100%)',
+        background: 'radial-gradient(ellipse 80% 80% at 70% 50%, transparent 40%, rgba(8,10,15,0.85) 100%)',
       }} />
 
       {/* Grid */}
