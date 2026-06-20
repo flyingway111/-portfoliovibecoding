@@ -1,4 +1,4 @@
-import { Bot, ShoppingBag, Layers, ExternalLink, Scissors, UtensilsCrossed } from 'lucide-react'
+import { Bot, ShoppingBag, Layers, ExternalLink, Scissors, UtensilsCrossed, CalendarCheck } from 'lucide-react'
 
 const services = [
   {
@@ -142,6 +142,34 @@ export default function Projects() {
                 ))}
               </div>
             </a>
+            {/* Project 5 */}
+            <a
+              href="https://cutbook-nine.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative flex flex-col gap-4 rounded-2xl border border-border bg-card p-6 transition-colors hover:border-primary/50"
+            >
+              <div className="flex items-center justify-between">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <CalendarCheck size={20} />
+                </span>
+                <ExternalLink size={16} className="text-muted-foreground/40 transition-colors group-hover:text-primary" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-foreground">CUTBOOK</h3>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Приложение для записи в барбершоп: выбор услуги, мастера, времени и подтверждение брони.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {['Next.js', 'Telegram Mini App', 'Бронирование'].map((tag) => (
+                  <span key={tag} className="rounded-full border border-border px-3 py-0.5 font-mono text-xs text-muted-foreground">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </a>
+
             {/* Project 4 */}
             <a
               href="https://mizuna-landing.vercel.app/"
