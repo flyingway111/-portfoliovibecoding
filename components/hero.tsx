@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import AnimatedBlob from './animated-blob'
 
 const roles = ['developer', 'bot builder', 'разработчик', 'tg ecosystem']
 
@@ -34,15 +35,14 @@ export default function Hero() {
       style={{ position: 'relative', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center', padding: '0 24px', paddingTop: '96px', overflow: 'hidden' }}
       aria-label="Hero"
     >
-      {/* Spline — full screen background via iframe */}
-      <iframe
-        aria-hidden
-        src="https://my.spline.design/tKUjHFyln8mYDJbs/"
-        frameBorder="0"
+      {/* Animated blob — right side */}
+      <AnimatedBlob
+        size={700}
         style={{
-          position: 'absolute', inset: 0, zIndex: 0,
-          width: '100%', height: '100%', border: 'none',
-          pointerEvents: 'none',
+          position: 'absolute',
+          right: '-120px', top: '50%',
+          transform: 'translateY(-50%)',
+          zIndex: 0,
         }}
       />
 

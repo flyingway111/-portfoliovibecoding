@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import AnimatedBlob from './animated-blob'
 
 const CHARS = 'ABCDEFGHIJKabcdef0123456789@#$%&'
 const TARGET = 'flyingway'
@@ -10,9 +11,9 @@ export default function Splash({ onDone }: { onDone: () => void }) {
   const [phase, setPhase] = useState<'idle' | 'scramble' | 'out'>('idle')
 
   useEffect(() => {
-    const t1 = setTimeout(() => setPhase('scramble'), 600)
-    const t2 = setTimeout(() => setPhase('out'), 2800)
-    const t3 = setTimeout(onDone, 3400)
+    const t1 = setTimeout(() => setPhase('scramble'), 400)
+    const t2 = setTimeout(() => setPhase('out'), 2600)
+    const t3 = setTimeout(onDone, 3200)
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3) }
   }, [onDone])
 
@@ -39,39 +40,40 @@ export default function Splash({ onDone }: { onDone: () => void }) {
       style={{
         position: 'fixed', inset: 0, zIndex: 1000,
         background: '#080A0F',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        overflow: 'hidden',
         opacity: phase === 'out' ? 0 : 1,
         transition: 'opacity 0.7s cubic-bezier(0.4,0,0.2,1)',
         pointerEvents: phase === 'out' ? 'none' : 'all',
-        overflow: 'hidden',
       }}
     >
-      {/* Spline full screen via iframe */}
-      <iframe
-        src="https://my.spline.design/tKUjHFyln8mYDJbs/"
-        frameBorder="0"
+      {/* Blob centered full screen */}
+      <AnimatedBlob
+        size={Math.min(window?.innerWidth ?? 700, 800)}
+        intensity="strong"
         style={{
-          position: 'absolute', inset: 0, zIndex: 0,
-          width: '100%', height: '100%', border: 'none',
+          position: 'absolute',
+          top: '50%', left: '50%',
+          transform: 'translate(-50%, -50%)',
         }}
       />
 
-      {/* Dark overlay */}
+      {/* Vignette overlay */}
       <div style={{
-        position: 'absolute', inset: 0, zIndex: 1,
-        background: 'rgba(8,10,15,0.55)',
+        position: 'absolute', inset: 0,
+        background: 'radial-gradient(ellipse at center, transparent 20%, #080A0F 75%)',
+        zIndex: 1,
       }} />
 
       {/* Text */}
       <div style={{
-        position: 'absolute', inset: 0, zIndex: 2,
-        display: 'flex', flexDirection: 'column',
-        alignItems: 'center', justifyContent: 'center',
+        position: 'relative', zIndex: 2,
         textAlign: 'center',
       }}>
         <p style={{
           fontFamily: 'var(--font-mono)', fontSize: '10px',
           letterSpacing: '0.4em', color: 'oklch(0.78 0.15 195)',
-          textTransform: 'uppercase', marginBottom: '20px', opacity: 0.8,
+          textTransform: 'uppercase', marginBottom: '20px', opacity: 0.9,
         }}>
           портфолио
         </p>
@@ -80,13 +82,14 @@ export default function Splash({ onDone }: { onDone: () => void }) {
           fontSize: 'clamp(52px, 12vw, 110px)',
           fontWeight: 800, color: 'oklch(0.93 0 0)',
           letterSpacing: '-0.04em', lineHeight: 1,
-          fontVariantNumeric: 'tabular-nums', minWidth: '6ch',
+          fontVariantNumeric: 'tabular-nums',
+          textShadow: '0 0 60px rgba(125,211,252,0.3)',
         }}>
           {text}
         </h1>
         <p style={{
           fontFamily: 'var(--font-mono)', fontSize: '11px',
-          color: 'rgba(130,145,170,0.6)', marginTop: '18px', letterSpacing: '0.25em',
+          color: 'rgba(130,145,170,0.7)', marginTop: '18px', letterSpacing: '0.25em',
         }}>
           vibe coder
         </p>
