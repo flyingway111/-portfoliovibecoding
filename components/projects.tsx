@@ -53,6 +53,12 @@ const projects = [
     href: 'https://cutbook-nine.vercel.app/',
     tags: ['--next.js', '--telegram', '--booking'],
   },
+  {
+    name: 'MEMO AI',
+    desc: 'AI SaaS лендинг + дашборд. Автоматическая документация команды из Slack и Notion.',
+    href: 'https://memo-ai-ivory.vercel.app/',
+    tags: ['--next.js', '--saas', '--dashboard'],
+  },
 ]
 
 function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
