@@ -1,98 +1,85 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import AnimatedBlob from './animated-blob'
-
-const CHARS = 'ABCDEFGHIJKabcdef0123456789@#$%&'
-const TARGET = 'flyingway'
 
 export default function Splash({ onDone }: { onDone: () => void }) {
-  const [text, setText] = useState(() => Array(TARGET.length).fill('·').join(''))
-  const [phase, setPhase] = useState<'idle' | 'scramble' | 'out'>('idle')
+  const [progress, setProgress] = useState(0)
+  const [out, setOut] = useState(false)
 
   useEffect(() => {
-    const t1 = setTimeout(() => setPhase('scramble'), 400)
-    const t2 = setTimeout(() => setPhase('out'), 2600)
-    const t3 = setTimeout(onDone, 3200)
-    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3) }
-  }, [onDone])
-
-  useEffect(() => {
-    if (phase !== 'scramble') return
     const start = Date.now()
-    const duration = 1500
+    const dur = 1600
     const interval = setInterval(() => {
-      const progress = Math.min((Date.now() - start) / duration, 1)
-      const revealed = Math.floor(progress * TARGET.length)
-      setText(
-        TARGET.split('').map((char, i) =>
-          i < revealed ? char : CHARS[Math.floor(Math.random() * CHARS.length)]
-        ).join('')
-      )
-      if (progress >= 1) clearInterval(interval)
-    }, 55)
+      const p = Math.min((Date.now() - start) / dur, 1)
+      setProgress(p)
+      if (p >= 1) {
+        clearInterval(interval)
+        setTimeout(() => setOut(true), 120)
+        setTimeout(onDone, 900)
+      }
+    }, 16)
     return () => clearInterval(interval)
-  }, [phase])
+  }, [onDone])
 
   return (
     <div
       aria-hidden
       style={{
         position: 'fixed', inset: 0, zIndex: 1000,
-        background: '#080A0F',
+        background: '#04070e',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        overflow: 'hidden',
-        opacity: phase === 'out' ? 0 : 1,
-        transition: 'opacity 0.7s cubic-bezier(0.4,0,0.2,1)',
-        pointerEvents: phase === 'out' ? 'none' : 'all',
+        flexDirection: 'column',
+        opacity: out ? 0 : 1,
+        transform: out ? 'translateY(-10px)' : 'translateY(0)',
+        transition: 'opacity 0.75s cubic-bezier(0.4,0,0.2,1), transform 0.75s ease',
+        pointerEvents: out ? 'none' : 'all',
       }}
     >
-      {/* Blob centered full screen */}
-      <AnimatedBlob
-        size={700}
-        intensity="strong"
-        style={{
-          position: 'absolute',
-          top: '50%', left: '50%',
-          transform: 'translate(-50%, -50%)',
-        }}
-      />
-
-      {/* Vignette overlay */}
-      <div style={{
-        position: 'absolute', inset: 0,
-        background: 'radial-gradient(ellipse at center, transparent 20%, #080A0F 75%)',
-        zIndex: 1,
+      {/* Subtle background glow on splash */}
+      <div aria-hidden style={{
+        position: 'absolute', top: '30%', left: '50%',
+        transform: 'translateX(-50%)',
+        width: '500px', height: '300px', borderRadius: '50%',
+        background: 'radial-gradient(ellipse, rgba(14,165,233,0.08) 0%, rgba(52,211,153,0.04) 50%, transparent 70%)',
+        filter: 'blur(50px)', pointerEvents: 'none',
       }} />
 
-      {/* Text */}
-      <div style={{
-        position: 'relative', zIndex: 2,
-        textAlign: 'center',
-      }}>
+      <div style={{ textAlign: 'center', marginBottom: '52px', position: 'relative' }}>
         <p style={{
           fontFamily: 'var(--font-mono)', fontSize: '10px',
-          letterSpacing: '0.4em', color: 'oklch(0.78 0.15 195)',
-          textTransform: 'uppercase', marginBottom: '20px', opacity: 0.9,
+          letterSpacing: '0.35em', textTransform: 'uppercase',
+          color: 'rgba(56,189,248,0.4)', marginBottom: '20px',
         }}>
           портфолио
         </p>
         <h1 style={{
           fontFamily: 'var(--font-sans)',
-          fontSize: 'clamp(52px, 12vw, 110px)',
-          fontWeight: 800, color: 'oklch(0.93 0 0)',
-          letterSpacing: '-0.04em', lineHeight: 1,
-          fontVariantNumeric: 'tabular-nums',
-          textShadow: '0 0 60px rgba(125,211,252,0.3)',
+          fontSize: 'clamp(52px, 10vw, 100px)',
+          fontWeight: 900, letterSpacing: '-0.055em', lineHeight: 1,
+          margin: 0,
         }}>
-          {text}
+          <span style={{ color: '#f8fafc' }}>flying</span>
+          <span style={{
+            WebkitTextStroke: '2px rgba(56,189,248,0.55)',
+            WebkitTextFillColor: 'transparent',
+          }}>way</span>
         </h1>
-        <p style={{
-          fontFamily: 'var(--font-mono)', fontSize: '11px',
-          color: 'rgba(130,145,170,0.7)', marginTop: '18px', letterSpacing: '0.25em',
-        }}>
-          vibe coder
-        </p>
+      </div>
+
+      {/* Progress bar */}
+      <div style={{
+        width: '140px', height: '1px',
+        background: 'rgba(56,189,248,0.1)',
+        borderRadius: '1px', overflow: 'hidden',
+        position: 'relative',
+      }}>
+        <div style={{
+          position: 'absolute', top: 0, left: 0,
+          height: '100%',
+          width: `${progress * 100}%`,
+          background: 'linear-gradient(90deg, #0ea5e9, #34d399)',
+          transition: 'width 0.04s linear',
+        }} />
       </div>
     </div>
   )

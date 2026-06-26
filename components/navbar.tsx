@@ -23,18 +23,19 @@ export default function Navbar() {
       zIndex: 50,
       width: 'calc(100% - 48px)',
       maxWidth: '860px',
-      transition: 'all 0.3s ease',
+      transition: 'all 0.3s cubic-bezier(0.32,0.72,0,1)',
     }}>
       <nav
         aria-label="Main navigation"
         style={{
-          background: scrolled ? 'rgba(8,10,15,0.88)' : 'rgba(8,10,15,0.6)',
-          backdropFilter: 'blur(16px)',
-          border: `1px solid ${scrolled ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.06)'}`,
+          background: scrolled ? 'rgba(4,7,14,0.92)' : 'rgba(4,7,14,0.6)',
+          backdropFilter: 'blur(20px)',
+          border: `1px solid ${scrolled ? 'rgba(56,189,248,0.18)' : 'rgba(56,189,248,0.08)'}`,
           borderRadius: '100px',
           padding: '12px 24px',
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          transition: 'all 0.3s ease',
+          transition: 'all 0.3s cubic-bezier(0.32,0.72,0,1)',
+          boxShadow: scrolled ? '0 8px 32px rgba(0,0,0,0.4), 0 0 0 0.5px rgba(56,189,248,0.08)' : 'none',
         }}
       >
         <a
@@ -42,11 +43,12 @@ export default function Navbar() {
           style={{
             fontFamily: 'var(--font-mono)',
             fontSize: '13px',
-            color: 'oklch(0.93 0 0)',
+            color: '#f8fafc',
             textDecoration: 'none',
+            letterSpacing: '-0.02em',
           }}
         >
-          flyingway<span style={{ color: 'oklch(0.78 0.15 195)' }}>.</span>
+          flyingway<span style={{ color: '#38bdf8' }}>.</span>
         </a>
 
         <ul style={{ display: 'flex', gap: '32px', listStyle: 'none', margin: 0, padding: 0 }}>
@@ -59,12 +61,12 @@ export default function Navbar() {
                   fontSize: '11px',
                   letterSpacing: '0.1em',
                   textTransform: 'uppercase',
-                  color: 'oklch(0.52 0 0)',
+                  color: 'rgba(148,163,184,0.5)',
                   textDecoration: 'none',
                   transition: 'color 0.2s',
                 }}
-                onMouseEnter={e => (e.currentTarget.style.color = 'oklch(0.93 0 0)')}
-                onMouseLeave={e => (e.currentTarget.style.color = 'oklch(0.52 0 0)')}
+                onMouseEnter={e => (e.currentTarget.style.color = 'rgba(56,189,248,0.9)')}
+                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(148,163,184,0.5)')}
               >
                 {link.label}
               </a>

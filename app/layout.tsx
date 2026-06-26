@@ -13,14 +13,14 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'flyingway — vibe coder',
+  title: 'flyingway — Telegram Developer',
   description:
-    'Portfolio of flyingway — building Telegram bots, mini apps, and tools that just work.',
-  keywords: ['flyingway', 'telegram bot', 'vibe coder', 'developer portfolio', 'mini app'],
+    'Портфолио flyingway — создаю Telegram-боты, мини-приложения и лендинги.',
+  keywords: ['flyingway', 'telegram bot', 'telegram developer', 'mini app', 'portfolio'],
   authors: [{ name: 'flyingway' }],
   openGraph: {
-    title: 'flyingway — vibe coder',
-    description: 'Building Telegram bots, mini apps, and tools that just work.',
+    title: 'flyingway — Telegram Developer',
+    description: 'Создаю Telegram-продукты — от умных ботов до мини-приложений.',
     type: 'website',
   },
 }
@@ -36,8 +36,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} bg-background`} style={{ backgroundColor: 'oklch(0.1 0 0)' }}>
-      <body className="font-sans antialiased bg-background text-foreground" style={{ backgroundColor: 'oklch(0.1 0 0)', color: 'oklch(0.93 0 0)' }}>{children}</body>
+    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`} style={{ backgroundColor: '#04070e' }}>
+      <body style={{ backgroundColor: '#04070e', color: '#f8fafc', fontFamily: 'var(--font-sans)', WebkitFontSmoothing: 'antialiased' }}>{children}</body>
     </html>
   )
 }
