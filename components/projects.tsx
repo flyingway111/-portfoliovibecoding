@@ -33,7 +33,7 @@ const projects = [
   {
     name: 'SHOP MINI APP',
     desc: 'Интернет-магазин одежды в Telegram. Каталог, корзина, оформление.',
-    href: 'https://shop-miniapp-six.vercel.app/',
+    href: 'https://shop-flyingway.vercel.app/',
     tags: ['next.js', 'supabase', 'telegram'],
     year: '2025',
   },
