@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 
-const MIZUNA_SHOT = 'https://api.microlink.io?screenshot=true&fullPage=true&embed=screenshot.url&url=' + encodeURIComponent('https://mizuna-landing.vercel.app/')
+const IRON_CLUB_SHOT = 'https://api.microlink.io?screenshot=true&fullPage=true&embed=screenshot.url&url=' + encodeURIComponent('https://fitness-ai-self.vercel.app/')
 
 /* ── Phone mockup with scrolling website ── */
 function PhoneDemo() {
@@ -61,7 +61,7 @@ function PhoneDemo() {
               fontSize: '9px', color: 'rgba(255,255,255,0.4)',
               letterSpacing: '0.02em',
             }}>
-              mizuna-landing.vercel.app
+              fitness-ai-self.vercel.app
             </span>
           </div>
           {/* Share icon */}
@@ -76,14 +76,21 @@ function PhoneDemo() {
           position: 'relative',
         }}>
           <img
-            src={MIZUNA_SHOT}
-            alt="Mizuna website"
+            src={IRON_CLUB_SHOT}
+            alt="Iron Club AI"
             style={{
               width: '100%',
               display: 'block',
               animation: 'phone-scroll 14s cubic-bezier(0.4,0,0.2,1) 1.5s infinite',
             }}
           />
+          {/* Scan line */}
+          <div aria-hidden style={{
+            position: 'absolute', left: 0, right: 0, height: '2px',
+            background: 'linear-gradient(90deg, transparent, rgba(99,102,241,0.5), transparent)',
+            animation: 'scan-line 8s linear 2s infinite',
+            pointerEvents: 'none',
+          }} />
         </div>
 
         {/* Bottom home bar */}
@@ -129,18 +136,20 @@ export default function Hero() {
         pointerEvents: 'none',
       }} />
 
-      {/* Glows */}
+      {/* Animated glows */}
       <div aria-hidden style={{
         position: 'absolute', top: '5%', right: '-5%',
         width: '700px', height: '700px', borderRadius: '50%',
         background: 'radial-gradient(ellipse, rgba(99,102,241,0.1) 0%, transparent 65%)',
         filter: 'blur(60px)', pointerEvents: 'none',
+        animation: 'glow-drift-1 18s ease-in-out infinite',
       }} />
       <div aria-hidden style={{
         position: 'absolute', bottom: '10%', left: '-8%',
         width: '500px', height: '500px', borderRadius: '50%',
-        background: 'radial-gradient(ellipse, rgba(99,102,241,0.05) 0%, transparent 65%)',
+        background: 'radial-gradient(ellipse, rgba(129,140,248,0.07) 0%, transparent 65%)',
         filter: 'blur(60px)', pointerEvents: 'none',
+        animation: 'glow-drift-2 22s ease-in-out infinite',
       }} />
 
       <div style={{
@@ -258,16 +267,80 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* RIGHT: Phone demo */}
+        {/* RIGHT: Phone demo + floating badges */}
         <div
           className="hero-visual"
           style={{
             display: 'flex', justifyContent: 'center', alignItems: 'center',
+            position: 'relative',
             opacity: mounted ? 1 : 0,
             transition: 'opacity 0.8s ease 0.3s',
           }}
         >
+          {/* Glowing ring behind phone */}
+          <div aria-hidden style={{
+            position: 'absolute', top: '50%', left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '320px', height: '320px', borderRadius: '50%',
+            border: '1px solid rgba(99,102,241,0.12)',
+            animation: 'phone-ring-pulse 4s ease-in-out infinite',
+            pointerEvents: 'none',
+          }} />
+          <div aria-hidden style={{
+            position: 'absolute', top: '50%', left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '420px', height: '420px', borderRadius: '50%',
+            border: '1px solid rgba(99,102,241,0.06)',
+            animation: 'phone-ring-pulse 4s ease-in-out 1s infinite',
+            pointerEvents: 'none',
+          }} />
+
           <PhoneDemo />
+
+          {/* Floating badge — top right */}
+          <div style={{
+            position: 'absolute', top: '40px', right: '-20px',
+            display: 'flex', alignItems: 'center', gap: '7px',
+            padding: '8px 14px',
+            background: 'rgba(27,27,40,0.9)',
+            border: '1px solid rgba(99,102,241,0.2)',
+            borderRadius: '12px',
+            backdropFilter: 'blur(12px)',
+            animation: 'badge-float 3.5s ease-in-out infinite',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+          }}>
+            <div style={{
+              width: '8px', height: '8px', borderRadius: '50%',
+              background: '#FB923C', flexShrink: 0,
+            }} />
+            <span style={{
+              fontFamily: 'var(--font-sans)', fontSize: '11px',
+              fontWeight: 600, color: '#F0EFF8', whiteSpace: 'nowrap',
+            }}>
+              IRON CLUB AI
+            </span>
+          </div>
+
+          {/* Floating badge — bottom left */}
+          <div style={{
+            position: 'absolute', bottom: '80px', left: '-30px',
+            display: 'flex', alignItems: 'center', gap: '7px',
+            padding: '8px 14px',
+            background: 'rgba(27,27,40,0.9)',
+            border: '1px solid rgba(99,102,241,0.2)',
+            borderRadius: '12px',
+            backdropFilter: 'blur(12px)',
+            animation: 'badge-float 4.2s ease-in-out 0.8s infinite',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+          }}>
+            <span style={{ fontSize: '13px' }}>⚡</span>
+            <span style={{
+              fontFamily: 'var(--font-mono)', fontSize: '10px',
+              color: '#818CF8', whiteSpace: 'nowrap',
+            }}>
+              Telegram Mini App
+            </span>
+          </div>
         </div>
       </div>
 
