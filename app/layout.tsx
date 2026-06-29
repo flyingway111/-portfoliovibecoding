@@ -1,10 +1,11 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, JetBrains_Mono } from 'next/font/google'
+import { Outfit, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 
-const inter = Inter({
+const outfit = Outfit({
   variable: '--font-sans',
   subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
 })
 
 const jetbrainsMono = JetBrains_Mono({
@@ -14,8 +15,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: 'flyingway — Telegram Developer',
-  description:
-    'Портфолио flyingway — создаю Telegram-боты, мини-приложения и лендинги.',
+  description: 'Портфолио flyingway — создаю Telegram-боты, мини-приложения и лендинги.',
   keywords: ['flyingway', 'telegram bot', 'telegram developer', 'mini app', 'portfolio'],
   authors: [{ name: 'flyingway' }],
   openGraph: {
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   colorScheme: 'dark',
-  themeColor: '#0a0a0a',
+  themeColor: '#12121C',
 }
 
 export default function RootLayout({
@@ -36,8 +36,21 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`} style={{ backgroundColor: '#04070e' }}>
-      <body style={{ backgroundColor: '#04070e', color: '#f8fafc', fontFamily: 'var(--font-sans)', WebkitFontSmoothing: 'antialiased' }}>{children}</body>
+    <html
+      lang="ru"
+      className={`${outfit.variable} ${jetbrainsMono.variable}`}
+      style={{ backgroundColor: '#12121C' }}
+    >
+      <body
+        style={{
+          backgroundColor: '#12121C',
+          color: '#F0EFF8',
+          fontFamily: 'var(--font-sans)',
+          WebkitFontSmoothing: 'antialiased',
+        }}
+      >
+        {children}
+      </body>
     </html>
   )
 }

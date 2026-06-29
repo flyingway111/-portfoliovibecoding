@@ -26,59 +26,64 @@ export default function Splash({ onDone }: { onDone: () => void }) {
       aria-hidden
       style={{
         position: 'fixed', inset: 0, zIndex: 1000,
-        background: '#04070e',
+        background: '#12121C',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         flexDirection: 'column',
         opacity: out ? 0 : 1,
-        transform: out ? 'translateY(-10px)' : 'translateY(0)',
-        transition: 'opacity 0.75s cubic-bezier(0.4,0,0.2,1), transform 0.75s ease',
+        transform: out ? 'translateY(-8px) scale(0.98)' : 'translateY(0) scale(1)',
+        transition: 'opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s ease',
         pointerEvents: out ? 'none' : 'all',
       }}
     >
-      {/* Subtle background glow on splash */}
+      {/* Dot grid */}
       <div aria-hidden style={{
-        position: 'absolute', top: '30%', left: '50%',
-        transform: 'translateX(-50%)',
-        width: '500px', height: '300px', borderRadius: '50%',
-        background: 'radial-gradient(ellipse, rgba(14,165,233,0.08) 0%, rgba(52,211,153,0.04) 50%, transparent 70%)',
-        filter: 'blur(50px)', pointerEvents: 'none',
+        position: 'absolute', inset: 0,
+        backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px)',
+        backgroundSize: '24px 24px',
+        pointerEvents: 'none',
       }} />
 
-      <div style={{ textAlign: 'center', marginBottom: '52px', position: 'relative' }}>
-        <p style={{
-          fontFamily: 'var(--font-mono)', fontSize: '10px',
-          letterSpacing: '0.35em', textTransform: 'uppercase',
-          color: 'rgba(56,189,248,0.4)', marginBottom: '20px',
-        }}>
-          портфолио
-        </p>
+      {/* Ambient glow */}
+      <div aria-hidden style={{
+        position: 'absolute', top: '50%', left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '600px', height: '600px', borderRadius: '50%',
+        background: 'radial-gradient(ellipse, rgba(99,102,241,0.12) 0%, transparent 65%)',
+        filter: 'blur(40px)', pointerEvents: 'none',
+      }} />
+
+      <div style={{
+        textAlign: 'center', marginBottom: '48px', position: 'relative',
+        animation: 'fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both',
+      }}>
         <h1 style={{
           fontFamily: 'var(--font-sans)',
-          fontSize: 'clamp(52px, 10vw, 100px)',
+          fontSize: 'clamp(56px, 10vw, 104px)',
           fontWeight: 900, letterSpacing: '-0.055em', lineHeight: 1,
           margin: 0,
         }}>
-          <span style={{ color: '#f8fafc' }}>flying</span>
+          <span style={{ color: '#F0EFF8' }}>flying</span>
           <span style={{
-            WebkitTextStroke: '2px rgba(56,189,248,0.55)',
+            WebkitTextStroke: '2.5px #6366F1',
             WebkitTextFillColor: 'transparent',
-          }}>way</span>
+          }}>
+            way
+          </span>
         </h1>
       </div>
 
       {/* Progress bar */}
       <div style={{
-        width: '140px', height: '1px',
-        background: 'rgba(56,189,248,0.1)',
-        borderRadius: '1px', overflow: 'hidden',
-        position: 'relative',
+        width: '120px', height: '2px',
+        background: 'rgba(255,255,255,0.08)',
+        borderRadius: '2px', overflow: 'hidden',
       }}>
         <div style={{
-          position: 'absolute', top: 0, left: 0,
           height: '100%',
           width: `${progress * 100}%`,
-          background: 'linear-gradient(90deg, #0ea5e9, #34d399)',
+          background: '#6366F1',
           transition: 'width 0.04s linear',
+          borderRadius: '2px',
         }} />
       </div>
     </div>

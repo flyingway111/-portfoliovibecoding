@@ -3,18 +3,27 @@ export default function Footer() {
 
   return (
     <footer style={{
-      borderTop: '1px solid rgba(56,189,248,0.07)',
-      padding: '28px 24px',
+      borderTop: '1px solid rgba(255,255,255,0.07)',
+      padding: '28px clamp(20px, 5vw, 80px)',
+      background: '#0E0E18',
     }}>
       <div style={{
-        margin: '0 auto', maxWidth: '860px',
+        margin: '0 auto', maxWidth: '1200px',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        flexWrap: 'wrap', gap: '12px',
       }}>
-        <p style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'rgba(148,163,184,0.3)' }}>
-          flyingway<span style={{ color: '#38bdf8' }}>.</span>
+        <p style={{
+          fontFamily: 'var(--font-sans)',
+          fontSize: '14px', fontWeight: 700,
+          letterSpacing: '-0.02em', color: '#F0EFF8',
+        }}>
+          flyingway<span style={{ color: '#6366F1' }}>.</span>
         </p>
-        <p style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'rgba(148,163,184,0.25)' }}>
-          © {year} — сделано с душой
+        <p style={{
+          fontFamily: 'var(--font-mono)',
+          fontSize: '11px', color: 'rgba(255,255,255,0.2)',
+        }}>
+          {year} — сделано с душой
         </p>
       </div>
     </footer>
