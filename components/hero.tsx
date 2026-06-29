@@ -2,107 +2,169 @@
 
 import { useEffect, useState } from 'react'
 
-const IRON_CLUB_SHOT = 'https://api.microlink.io?screenshot=true&fullPage=true&embed=screenshot.url&url=' + encodeURIComponent('https://fitness-ai-self.vercel.app/')
+/* ── Iron Club AI mock screen ── */
+function IronClubScreen() {
+  return (
+    <div style={{
+      height: '100%', background: '#080810',
+      display: 'flex', flexDirection: 'column',
+      overflow: 'hidden', position: 'relative',
+    }}>
+      {/* Ambient glow */}
+      <div style={{
+        position: 'absolute', top: '-40px', left: '50%',
+        transform: 'translateX(-50%)',
+        width: '200px', height: '200px', borderRadius: '50%',
+        background: 'radial-gradient(ellipse, rgba(255,107,0,0.12) 0%, transparent 70%)',
+        filter: 'blur(20px)', pointerEvents: 'none',
+      }} />
 
-/* ── Phone mockup with scrolling website ── */
+      {/* Telegram mini app header */}
+      <div style={{
+        padding: '14px 16px 12px',
+        display: 'flex', alignItems: 'center', gap: '10px',
+        borderBottom: '1px solid rgba(255,255,255,0.05)',
+        flexShrink: 0,
+      }}>
+        <div style={{
+          width: '30px', height: '30px', borderRadius: '50%',
+          background: 'linear-gradient(135deg, #FF6B00, #FF8C00)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontSize: '13px', flexShrink: 0,
+        }}>
+          💪
+        </div>
+        <div>
+          <div style={{ fontFamily: 'var(--font-sans)', fontSize: '12px', fontWeight: 700, color: '#F0EFF8', lineHeight: 1 }}>
+            IRON CLUB AI
+          </div>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', color: 'rgba(255,255,255,0.3)', marginTop: '2px', letterSpacing: '0.04em' }}>
+            FITNESS ASSISTANT
+          </div>
+        </div>
+        <div style={{ marginLeft: 'auto' }}>
+          <div style={{
+            padding: '3px 8px', borderRadius: '20px',
+            background: 'rgba(255,107,0,0.12)', border: '1px solid rgba(255,107,0,0.25)',
+            fontFamily: 'var(--font-mono)', fontSize: '8px', color: '#FF8C00',
+          }}>
+            AI ON
+          </div>
+        </div>
+      </div>
+
+      {/* Chat area */}
+      <div style={{ flex: 1, padding: '12px', display: 'flex', flexDirection: 'column', gap: '8px', overflowY: 'hidden' }}>
+        {/* AI message */}
+        <div style={{
+          background: 'rgba(255,107,0,0.07)',
+          border: '1px solid rgba(255,107,0,0.15)',
+          borderRadius: '4px 12px 12px 12px',
+          padding: '9px 11px',
+        }}>
+          <div style={{ fontFamily: 'var(--font-sans)', fontSize: '9px', color: '#FF8C00', fontWeight: 600, marginBottom: '4px' }}>
+            🤖 AI Тренер
+          </div>
+          <div style={{ fontFamily: 'var(--font-sans)', fontSize: '10px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.5 }}>
+            Привет! Сегодня день груди. Рекомендую 4 подхода жима лёжа 80 кг.
+          </div>
+        </div>
+
+        {/* Stats grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '5px' }}>
+          {[['80 кг', 'Вес'], ['4×8', 'Подходы'], ['420', 'Ккал']].map(([v, l]) => (
+            <div key={l} style={{
+              background: 'rgba(255,255,255,0.04)',
+              border: '1px solid rgba(255,255,255,0.07)',
+              borderRadius: '10px', padding: '8px 4px', textAlign: 'center',
+            }}>
+              <div style={{ fontFamily: 'var(--font-sans)', fontSize: '12px', fontWeight: 700, color: '#FF8C00' }}>{v}</div>
+              <div style={{ fontFamily: 'var(--font-sans)', fontSize: '8px', color: 'rgba(255,255,255,0.28)', marginTop: '2px' }}>{l}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Progress */}
+        <div style={{ background: 'rgba(255,255,255,0.03)', borderRadius: '10px', padding: '10px 12px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
+            <span style={{ fontFamily: 'var(--font-sans)', fontSize: '9px', color: 'rgba(255,255,255,0.4)' }}>Прогресс</span>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', color: '#FF8C00' }}>3 / 4</span>
+          </div>
+          <div style={{ height: '3px', background: 'rgba(255,255,255,0.07)', borderRadius: '3px' }}>
+            <div style={{ width: '75%', height: '100%', background: 'linear-gradient(90deg, #FF6B00, #FF8C00)', borderRadius: '3px', boxShadow: '0 0 6px rgba(255,107,0,0.5)' }} />
+          </div>
+          <div style={{ display: 'flex', gap: '4px', marginTop: '8px' }}>
+            {['Жим', 'Разводка', 'Блок', 'Отжим'].map((ex, i) => (
+              <div key={ex} style={{
+                flex: 1, padding: '4px 2px', borderRadius: '5px', textAlign: 'center',
+                background: i < 3 ? 'rgba(255,107,0,0.15)' : 'rgba(255,255,255,0.04)',
+                border: `1px solid ${i < 3 ? 'rgba(255,107,0,0.25)' : 'rgba(255,255,255,0.06)'}`,
+                fontFamily: 'var(--font-sans)', fontSize: '7px',
+                color: i < 3 ? '#FF8C00' : 'rgba(255,255,255,0.25)',
+              }}>
+                {ex}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div style={{
+          background: 'linear-gradient(135deg, #FF6B00, #FF8C00)',
+          borderRadius: '12px', padding: '11px',
+          textAlign: 'center',
+          fontFamily: 'var(--font-sans)', fontSize: '11px',
+          fontWeight: 700, color: '#fff',
+          letterSpacing: '0.06em',
+          boxShadow: '0 4px 20px rgba(255,107,0,0.3)',
+        }}>
+          СЛЕДУЮЩИЙ ПОДХОД
+        </div>
+      </div>
+
+      {/* Scan line */}
+      <div aria-hidden style={{
+        position: 'absolute', left: 0, right: 0, height: '1px',
+        background: 'linear-gradient(90deg, transparent, rgba(255,107,0,0.4), transparent)',
+        animation: 'scan-line 6s linear 1s infinite',
+        pointerEvents: 'none',
+      }} />
+    </div>
+  )
+}
+
+/* ── Phone mockup ── */
 function PhoneDemo() {
   return (
     <div style={{
-      width: '264px',
+      width: '248px', flexShrink: 0,
       background: 'linear-gradient(160deg, #23233a 0%, #18182a 100%)',
-      borderRadius: '44px',
-      padding: '8px',
+      borderRadius: '44px', padding: '8px',
       boxShadow: '0 48px 96px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.1)',
     }}>
-      {/* Screen */}
       <div style={{
-        background: '#000',
-        borderRadius: '38px',
-        overflow: 'hidden',
-        height: '496px',
+        background: '#080810', borderRadius: '38px',
+        overflow: 'hidden', height: '488px',
         display: 'flex', flexDirection: 'column',
         position: 'relative',
       }}>
         {/* Dynamic island */}
         <div style={{
-          width: '88px', height: '28px',
-          background: '#000',
-          borderRadius: '0 0 20px 20px',
-          margin: '0 auto',
-          flexShrink: 0, zIndex: 10,
-          position: 'relative',
+          width: '80px', height: '26px', background: '#000',
+          borderRadius: '0 0 18px 18px', margin: '0 auto',
+          flexShrink: 0, zIndex: 10, position: 'relative',
         }} />
 
-        {/* Browser bar */}
-        <div style={{
-          display: 'flex', alignItems: 'center', gap: '8px',
-          padding: '6px 12px 8px',
-          background: '#111118',
-          borderBottom: '1px solid rgba(255,255,255,0.06)',
-          flexShrink: 0, zIndex: 5,
-        }}>
-          {/* Back arrow */}
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
-            <path d="M15 18l-6-6 6-6" stroke="rgba(255,255,255,0.35)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-          {/* URL pill */}
-          <div style={{
-            flex: 1, height: '26px', borderRadius: '8px',
-            background: 'rgba(255,255,255,0.07)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px',
-          }}>
-            {/* Lock icon */}
-            <svg width="9" height="9" viewBox="0 0 24 24" fill="none">
-              <rect x="3" y="11" width="18" height="11" rx="2" stroke="rgba(255,255,255,0.4)" strokeWidth="2"/>
-              <path d="M7 11V7a5 5 0 0110 0v4" stroke="rgba(255,255,255,0.4)" strokeWidth="2" strokeLinecap="round"/>
-            </svg>
-            <span style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '9px', color: 'rgba(255,255,255,0.4)',
-              letterSpacing: '0.02em',
-            }}>
-              fitness-ai-self.vercel.app
-            </span>
-          </div>
-          {/* Share icon */}
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
-            <path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v13" stroke="rgba(255,255,255,0.35)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </div>
-
-        {/* Scrolling website */}
-        <div style={{
-          flex: 1, overflow: 'hidden',
-          position: 'relative',
-        }}>
-          <img
-            src={IRON_CLUB_SHOT}
-            alt="Iron Club AI"
-            style={{
-              width: '100%',
-              display: 'block',
-              animation: 'phone-scroll 14s cubic-bezier(0.4,0,0.2,1) 1.5s infinite',
-            }}
-          />
-          {/* Scan line */}
-          <div aria-hidden style={{
-            position: 'absolute', left: 0, right: 0, height: '2px',
-            background: 'linear-gradient(90deg, transparent, rgba(99,102,241,0.5), transparent)',
-            animation: 'scan-line 8s linear 2s infinite',
-            pointerEvents: 'none',
-          }} />
-        </div>
+        <IronClubScreen />
 
         {/* Bottom home bar */}
         <div style={{
-          height: '20px', background: '#000',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          flexShrink: 0,
+          position: 'absolute', bottom: 0, left: 0, right: 0,
+          height: '22px', background: 'linear-gradient(transparent, rgba(8,8,16,0.95))',
+          display: 'flex', alignItems: 'flex-end', justifyContent: 'center',
+          paddingBottom: '5px',
         }}>
-          <div style={{
-            width: '100px', height: '4px', borderRadius: '4px',
-            background: 'rgba(255,255,255,0.25)',
-          }} />
+          <div style={{ width: '90px', height: '4px', borderRadius: '4px', background: 'rgba(255,255,255,0.2)' }} />
         </div>
       </div>
     </div>
@@ -345,14 +407,6 @@ export default function Hero() {
       </div>
 
       <style>{`
-        @keyframes phone-scroll {
-          0%   { transform: translateY(0); }
-          10%  { transform: translateY(0); }
-          45%  { transform: translateY(calc(-100% + 420px)); }
-          55%  { transform: translateY(calc(-100% + 420px)); }
-          90%  { transform: translateY(0); }
-          100% { transform: translateY(0); }
-        }
         @media (max-width: 860px) {
           .hero-visual { display: none !important; }
           #hero > div > div { grid-template-columns: 1fr !important; }

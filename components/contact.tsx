@@ -118,21 +118,6 @@ export default function Contact() {
               Написать в Telegram
             </a>
 
-            <div style={{ marginTop: '20px' }}>
-              <a
-                href="mailto:taramparam10@gmail.com"
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '13px', color: '#6B6A7C',
-                  textDecoration: 'none',
-                  transition: 'color 0.2s',
-                }}
-                onMouseEnter={e => { e.currentTarget.style.color = '#818CF8' }}
-                onMouseLeave={e => { e.currentTarget.style.color = '#6B6A7C' }}
-              >
-                taramparam10@gmail.com
-              </a>
-            </div>
           </div>
 
           {/* RIGHT: Info cards */}

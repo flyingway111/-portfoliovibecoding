@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import Navbar from '@/components/navbar'
 import Hero from '@/components/hero'
-import Ticker from '@/components/ticker'
 import Projects from '@/components/projects'
 import Contact from '@/components/contact'
 import Footer from '@/components/footer'
@@ -24,7 +23,6 @@ export default function Page() {
       >
         <Navbar />
         <Hero />
-        <Ticker />
         <Projects />
         <Contact />
         <Footer />
