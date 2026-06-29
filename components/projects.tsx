@@ -426,9 +426,6 @@ export default function Projects() {
               }}>
                 Проекты
               </h2>
-              <p style={{ fontFamily: 'var(--font-sans)', fontSize: '15px', color: '#6B6A7C', maxWidth: '38ch', lineHeight: 1.6 }}>
-                Подборка работ 2024-2025. Все задеплоены и работают вживую.
-              </p>
             </div>
           </div>
 
