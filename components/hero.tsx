@@ -1,87 +1,11 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 
-/* ── Chat animation ── */
-type Msg = {
-  id: number
-  from: 'user' | 'bot'
-  text: string
-  buttons?: string[]
-  activeBtn?: number
-}
+const MIZUNA_SHOT = 'https://api.microlink.io?screenshot=true&fullPage=true&embed=screenshot.url&url=' + encodeURIComponent('https://mizuna-landing.vercel.app/')
 
-const SEQUENCE: { msg?: Partial<Msg>; activateBtn?: { id: number; idx: number }; clear?: boolean; delay: number }[] = [
-  { delay: 800,  msg: { from: 'user', text: 'Хочу записаться на стрижку ✂️' } },
-  { delay: 1100, msg: { from: 'bot',  text: 'Выберите мастера:', buttons: ['Алексей', 'Денис', 'Максим'] } },
-  { delay: 1600, activateBtn: { id: 1, idx: 0 } },
-  { delay: 400,  msg: { from: 'user', text: 'Алексей' } },
-  { delay: 1100, msg: { from: 'bot',  text: 'На какое время?', buttons: ['11:00', '14:00', '17:00'] } },
-  { delay: 1600, activateBtn: { id: 3, idx: 1 } },
-  { delay: 400,  msg: { from: 'user', text: '14:00' } },
-  { delay: 1100, msg: { from: 'bot',  text: '✅ Запись подтверждена!\nАлексей — завтра в 14:00' } },
-  { delay: 3000, clear: true },
-]
-
-let globalId = 0
-
-function useChatLoop() {
-  const [msgs, setMsgs] = useState<Msg[]>([])
-  const [typing, setTyping] = useState(false)
-  const stepRef = useRef(0)
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-
-  useEffect(() => {
-    function runStep() {
-      const step = SEQUENCE[stepRef.current % SEQUENCE.length]
-
-      timerRef.current = setTimeout(() => {
-        if (step.clear) {
-          setMsgs([])
-          setTyping(false)
-        } else if (step.activateBtn) {
-          const { id, idx } = step.activateBtn
-          setMsgs(prev => prev.map(m => m.id === id ? { ...m, activeBtn: idx } : m))
-        } else if (step.msg) {
-          const isBot = step.msg.from === 'bot'
-          if (isBot) {
-            setTyping(true)
-            timerRef.current = setTimeout(() => {
-              setTyping(false)
-              const newMsg: Msg = { id: ++globalId, from: 'bot', text: step.msg!.text!, buttons: step.msg!.buttons }
-              setMsgs(prev => [...prev, newMsg])
-              stepRef.current++
-              runStep()
-            }, 950)
-            return
-          } else {
-            const newMsg: Msg = { id: ++globalId, from: 'user', text: step.msg!.text! }
-            setMsgs(prev => [...prev, newMsg])
-          }
-        }
-        stepRef.current++
-        runStep()
-      }, step.delay)
-    }
-
-    runStep()
-    return () => { if (timerRef.current) clearTimeout(timerRef.current) }
-  }, [])
-
-  return { msgs, typing }
-}
-
-/* ── Phone mockup ── */
+/* ── Phone mockup with scrolling website ── */
 function PhoneDemo() {
-  const { msgs, typing } = useChatLoop()
-  const scrollRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight
-    }
-  }, [msgs, typing])
-
   return (
     <div style={{
       width: '264px',
@@ -92,7 +16,7 @@ function PhoneDemo() {
     }}>
       {/* Screen */}
       <div style={{
-        background: '#0d0d18',
+        background: '#000',
         borderRadius: '38px',
         overflow: 'hidden',
         height: '496px',
@@ -105,171 +29,75 @@ function PhoneDemo() {
           background: '#000',
           borderRadius: '0 0 20px 20px',
           margin: '0 auto',
-          flexShrink: 0,
-          position: 'relative', zIndex: 2,
+          flexShrink: 0, zIndex: 10,
+          position: 'relative',
         }} />
 
-        {/* Telegram header */}
+        {/* Browser bar */}
         <div style={{
-          display: 'flex', alignItems: 'center', gap: '10px',
-          padding: '10px 16px 12px',
-          background: '#0d0d18',
-          borderBottom: '1px solid rgba(255,255,255,0.05)',
-          flexShrink: 0,
-        }}>
-          <div style={{
-            width: '34px', height: '34px', borderRadius: '50%',
-            background: 'linear-gradient(135deg, #6366F1, #818CF8)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: '14px', flexShrink: 0,
-          }}>
-            ✂️
-          </div>
-          <div>
-            <div style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '13px', fontWeight: 700, color: '#F0EFF8',
-              lineHeight: 1,
-            }}>
-              CUTBOOK Bot
-            </div>
-            <div style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '10px', color: '#22c55e',
-              marginTop: '3px',
-            }}>
-              онлайн
-            </div>
-          </div>
-          <div style={{ marginLeft: 'auto', display: 'flex', gap: '14px' }}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-              <circle cx="11" cy="11" r="8" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5"/>
-              <path d="M21 21l-4.35-4.35" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
-          </div>
-        </div>
-
-        {/* Chat area */}
-        <div
-          ref={scrollRef}
-          style={{
-            flex: 1, overflowY: 'auto', overflowX: 'hidden',
-            padding: '12px 12px 8px',
-            display: 'flex', flexDirection: 'column', gap: '6px',
-            scrollbarWidth: 'none',
-          }}
-        >
-          {msgs.map(msg => (
-            <ChatBubble key={msg.id} msg={msg} />
-          ))}
-
-          {typing && <TypingIndicator />}
-        </div>
-
-        {/* Input bar */}
-        <div style={{
-          padding: '8px 10px 12px',
           display: 'flex', alignItems: 'center', gap: '8px',
-          borderTop: '1px solid rgba(255,255,255,0.04)',
-          flexShrink: 0,
-          background: '#0d0d18',
+          padding: '6px 12px 8px',
+          background: '#111118',
+          borderBottom: '1px solid rgba(255,255,255,0.06)',
+          flexShrink: 0, zIndex: 5,
         }}>
+          {/* Back arrow */}
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
+            <path d="M15 18l-6-6 6-6" stroke="rgba(255,255,255,0.35)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          {/* URL pill */}
           <div style={{
-            flex: 1, height: '32px', borderRadius: '16px',
-            background: 'rgba(255,255,255,0.06)',
-            border: '1px solid rgba(255,255,255,0.08)',
-            display: 'flex', alignItems: 'center', padding: '0 12px',
+            flex: 1, height: '26px', borderRadius: '8px',
+            background: 'rgba(255,255,255,0.07)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px',
           }}>
-            <span style={{ fontFamily: 'var(--font-sans)', fontSize: '11px', color: 'rgba(255,255,255,0.2)' }}>
-              Сообщение...
+            {/* Lock icon */}
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none">
+              <rect x="3" y="11" width="18" height="11" rx="2" stroke="rgba(255,255,255,0.4)" strokeWidth="2"/>
+              <path d="M7 11V7a5 5 0 0110 0v4" stroke="rgba(255,255,255,0.4)" strokeWidth="2" strokeLinecap="round"/>
+            </svg>
+            <span style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '9px', color: 'rgba(255,255,255,0.4)',
+              letterSpacing: '0.02em',
+            }}>
+              mizuna-landing.vercel.app
             </span>
           </div>
-          <div style={{
-            width: '32px', height: '32px', borderRadius: '50%',
-            background: '#6366F1',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            flexShrink: 0,
-          }}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-              <path d="M22 2L11 13M22 2L15 22 11 13 2 9l20-7z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </div>
+          {/* Share icon */}
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
+            <path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v13" stroke="rgba(255,255,255,0.35)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
         </div>
-      </div>
-    </div>
-  )
-}
 
-function ChatBubble({ msg }: { msg: Msg }) {
-  const isUser = msg.from === 'user'
-  return (
-    <div style={{
-      display: 'flex', flexDirection: 'column',
-      alignItems: isUser ? 'flex-end' : 'flex-start',
-      animation: 'chat-in 0.28s cubic-bezier(0.16,1,0.3,1) both',
-    }}>
-      <div style={{
-        maxWidth: '78%',
-        padding: '8px 11px',
-        background: isUser ? '#6366F1' : '#1e1e30',
-        borderRadius: isUser ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
-        border: isUser ? 'none' : '1px solid rgba(255,255,255,0.06)',
-      }}>
-        <p style={{
-          fontFamily: 'var(--font-sans)',
-          fontSize: '12px', color: isUser ? '#fff' : '#D0CFDD',
-          lineHeight: 1.45, margin: 0,
-          whiteSpace: 'pre-line',
-        }}>
-          {msg.text}
-        </p>
-      </div>
-
-      {msg.buttons && (
+        {/* Scrolling website */}
         <div style={{
-          display: 'flex', flexWrap: 'wrap', gap: '5px',
-          marginTop: '5px', maxWidth: '90%',
+          flex: 1, overflow: 'hidden',
+          position: 'relative',
         }}>
-          {msg.buttons.map((b, i) => (
-            <button key={b} style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '11px', fontWeight: 600,
-              color: msg.activeBtn === i ? '#fff' : '#818CF8',
-              padding: '5px 11px',
-              background: msg.activeBtn === i ? '#6366F1' : 'rgba(99,102,241,0.1)',
-              border: `1px solid ${msg.activeBtn === i ? '#6366F1' : 'rgba(99,102,241,0.25)'}`,
-              borderRadius: '10px', cursor: 'default',
-              transition: 'all 0.25s ease',
-            }}>
-              {b}
-            </button>
-          ))}
+          <img
+            src={MIZUNA_SHOT}
+            alt="Mizuna website"
+            style={{
+              width: '100%',
+              display: 'block',
+              animation: 'phone-scroll 14s cubic-bezier(0.4,0,0.2,1) 1.5s infinite',
+            }}
+          />
         </div>
-      )}
-    </div>
-  )
-}
 
-function TypingIndicator() {
-  return (
-    <div style={{
-      display: 'flex', alignItems: 'center', gap: '4px',
-      padding: '9px 12px',
-      background: '#1e1e30',
-      borderRadius: '16px 16px 16px 4px',
-      width: 'fit-content',
-      animation: 'chat-in 0.28s cubic-bezier(0.16,1,0.3,1) both',
-    }}>
-      {[0, 1, 2].map(i => (
-        <div key={i} style={{
-          width: '5px', height: '5px', borderRadius: '50%',
-          background: '#818CF8',
-          animation: `typing-dot 1.2s ease-in-out ${i * 0.2}s infinite`,
-        }} />
-      ))}
+        {/* Bottom home bar */}
+        <div style={{
+          height: '20px', background: '#000',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          flexShrink: 0,
+        }}>
+          <div style={{
+            width: '100px', height: '4px', borderRadius: '4px',
+            background: 'rgba(255,255,255,0.25)',
+          }} />
+        </div>
+      </div>
     </div>
   )
 }
@@ -444,13 +272,13 @@ export default function Hero() {
       </div>
 
       <style>{`
-        @keyframes chat-in {
-          from { opacity: 0; transform: translateY(8px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes typing-dot {
-          0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-          30%            { transform: translateY(-4px); opacity: 1; }
+        @keyframes phone-scroll {
+          0%   { transform: translateY(0); }
+          10%  { transform: translateY(0); }
+          45%  { transform: translateY(calc(-100% + 420px)); }
+          55%  { transform: translateY(calc(-100% + 420px)); }
+          90%  { transform: translateY(0); }
+          100% { transform: translateY(0); }
         }
         @media (max-width: 860px) {
           .hero-visual { display: none !important; }
