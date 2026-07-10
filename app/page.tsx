@@ -83,7 +83,7 @@ function SignalGridBackdrop() {
         poster="/hero/poster.jpg"
         aria-hidden="true"
       >
-        <source media="(max-width: 768px)" src="/hero/pro-energy-grid.mp4" type="video/mp4" />
+        <source media="(max-width: 768px)" src="/hero/pro-energy-grid-loop.mp4" type="video/mp4" />
         <source src="/hero/pro-energy-grid-loop-hq.mp4" type="video/mp4" />
       </video>
       <div className="hero-cinema-soften absolute inset-0" />
