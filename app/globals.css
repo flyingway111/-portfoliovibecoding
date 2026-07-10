@@ -241,7 +241,7 @@ body {
 .hero-cinema-video {
   object-position: 57% center;
   opacity: 0.9;
-  filter: saturate(0.96) contrast(1.05) brightness(0.82);
+  filter: blur(1px) saturate(0.96) contrast(1.05) brightness(0.82);
   transform: translateZ(0);
   backface-visibility: hidden;
 }
@@ -481,8 +481,8 @@ body {
 @media (max-width: 768px) {
   .hero-cinema-video {
     object-position: 48% center;
-    filter: blur(8px) saturate(1.1) contrast(1.05) brightness(0.98);
-    transform: scale(1.08) translateZ(0);
+    filter: blur(4px) saturate(1.1) contrast(1.05) brightness(0.98);
+    transform: scale(1.04) translateZ(0);
   }
 
   .hero-cinema-soften {
