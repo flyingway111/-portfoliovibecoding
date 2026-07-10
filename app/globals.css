@@ -145,6 +145,77 @@ body {
   50%       { opacity: 0.6; transform: scale(1.02); }
 }
 
+@keyframes hero-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes section-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.982);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes panel-sheen {
+  0% {
+    transform: translateX(-160%) rotate(14deg);
+    opacity: 0;
+  }
+  18% {
+    opacity: 0.18;
+  }
+  42% {
+    opacity: 0.22;
+  }
+  100% {
+    transform: translateX(260%) rotate(14deg);
+    opacity: 0;
+  }
+}
+
+@keyframes panel-ambient-float {
+  0%, 100% {
+    transform: translateY(0);
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.14);
+  }
+  50% {
+    transform: translateY(-4px);
+    box-shadow: 0 28px 64px rgba(0, 0, 0, 0.22);
+  }
+}
+
+@keyframes line-glow-pass {
+  0% {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.18;
+  }
+  55% {
+    opacity: 0.24;
+  }
+  100% {
+    transform: translateX(180%);
+    opacity: 0;
+  }
+}
+
 @keyframes badge-float {
   0%, 100% { transform: translateY(0px); }
   50%       { transform: translateY(-6px); }
@@ -157,10 +228,265 @@ body {
   100% { top: 100%; opacity: 0; }
 }
 
+.hero-cinema {
+  background: #030405;
+}
+
+.hero-cinema-video {
+  object-position: 57% center;
+  opacity: 0.9;
+  filter: saturate(0.96) contrast(1.05) brightness(0.82);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.hero-cinema-soften {
+  background:
+    radial-gradient(circle at 72% 44%, rgba(7, 9, 12, 0.14) 0%, rgba(7, 9, 12, 0.38) 36%, rgba(7, 9, 12, 0.58) 100%),
+    linear-gradient(90deg, rgba(4, 5, 6, 0.42) 0%, rgba(4, 5, 6, 0.14) 34%, rgba(4, 5, 6, 0.26) 72%, rgba(4, 5, 6, 0.48) 100%);
+  backdrop-filter: blur(8px) saturate(0.82);
+  -webkit-backdrop-filter: blur(8px) saturate(0.82);
+  mask-image: radial-gradient(circle at 68% 46%, black 0%, black 58%, transparent 92%);
+  -webkit-mask-image: radial-gradient(circle at 68% 46%, black 0%, black 58%, transparent 92%);
+}
+
+.hero-cinema-grade {
+  background:
+    linear-gradient(90deg, rgba(3, 4, 5, 0.9) 0%, rgba(3, 4, 5, 0.72) 28%, rgba(3, 4, 5, 0.28) 66%, rgba(3, 4, 5, 0.42) 100%),
+    linear-gradient(180deg, rgba(3, 4, 5, 0.62) 0%, rgba(3, 4, 5, 0.16) 32%, rgba(3, 4, 5, 0.5) 76%, rgba(3, 4, 5, 0.985) 100%);
+}
+
+.hero-cinema-vignette {
+  background:
+    radial-gradient(circle at 70% 43%, transparent 0%, rgba(3, 4, 5, 0.08) 42%, rgba(3, 4, 5, 0.7) 100%),
+    radial-gradient(circle at 52% 22%, rgba(224, 169, 93, 0.03), transparent 28%);
+  box-shadow: inset 0 0 170px 38px rgba(0, 0, 0, 0.42);
+}
+
+.hero-cinema-fade {
+  background: linear-gradient(180deg, transparent 64%, #040506 100%);
+}
+
+.hero-reveal {
+  opacity: 0;
+  animation: hero-reveal 0.95s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.viewport-reveal {
+  opacity: 0;
+  transform: translateY(30px) scale(0.985);
+  filter: blur(10px);
+  transition:
+    opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 900ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform, filter;
+}
+
+.viewport-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+.hero-reveal:nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.section-reveal {
+  opacity: 0;
+  animation: section-reveal 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-timeline: view();
+  animation-range: entry 0% cover 30%;
+}
+
+.hero-panel {
+  animation-delay: 0.14s;
+}
+
+.scroll-chip {
+  animation: float-bob-slow 3.8s ease-in-out infinite;
+}
+
+.scroll-panel {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 24px;
+  transition:
+    transform 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 320ms ease,
+    box-shadow 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 320ms ease;
+}
+
+.scroll-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 0%, rgba(255, 223, 169, 0.02) 42%, rgba(255, 223, 169, 0.08) 50%, rgba(255, 223, 169, 0.02) 58%, transparent 100%);
+  transform: translateX(-160%) rotate(14deg);
+  pointer-events: none;
+  opacity: 0;
+  animation: panel-sheen linear both;
+  animation-timeline: view();
+  animation-range: entry 5% cover 38%;
+}
+
+.scroll-panel::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 1px;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(232, 181, 93, 0.65), transparent);
+  transform: translateX(-120%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.scroll-panel > * {
+  transition:
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.viewport-reveal.scroll-panel h4,
+.viewport-reveal.scroll-panel h3,
+.viewport-reveal.scroll-panel p,
+.viewport-reveal.scroll-panel li,
+.viewport-reveal.scroll-panel > div:first-child {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.viewport-reveal.is-visible.scroll-panel h4,
+.viewport-reveal.is-visible.scroll-panel h3,
+.viewport-reveal.is-visible.scroll-panel p,
+.viewport-reveal.is-visible.scroll-panel li,
+.viewport-reveal.is-visible.scroll-panel > div:first-child {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.viewport-reveal.is-visible.scroll-panel li:nth-child(1),
+.viewport-reveal.is-visible.scroll-panel p:nth-child(1) {
+  transition-delay: 90ms;
+}
+
+.viewport-reveal.is-visible.scroll-panel li:nth-child(2),
+.viewport-reveal.is-visible.scroll-panel p:nth-child(2) {
+  transition-delay: 160ms;
+}
+
+.viewport-reveal.is-visible.scroll-panel li:nth-child(3),
+.viewport-reveal.is-visible.scroll-panel p:nth-child(3) {
+  transition-delay: 230ms;
+}
+
+.viewport-reveal.is-visible.scroll-panel li:nth-child(4),
+.viewport-reveal.is-visible.scroll-panel p:nth-child(4) {
+  transition-delay: 300ms;
+}
+
+.viewport-reveal.is-visible.scroll-panel li:nth-child(5),
+.viewport-reveal.is-visible.scroll-panel p:nth-child(5) {
+  transition-delay: 370ms;
+}
+
+.viewport-reveal.is-visible.scroll-panel {
+  animation: panel-ambient-float 7.2s ease-in-out infinite;
+}
+
+.viewport-reveal.is-visible.scroll-panel::after {
+  animation: line-glow-pass 5.6s ease-in-out infinite;
+  animation-delay: calc(var(--reveal-delay, 0ms) + 400ms);
+}
+
+.scroll-panel:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.2);
+  border-color: rgba(232, 181, 93, 0.18);
+}
+
+.scroll-card {
+  border-radius: 18px;
+  transition:
+    transform 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 320ms ease,
+    box-shadow 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.scroll-card:hover {
+  transform: translateY(-4px);
+  box-shadow: inset 0 0 0 1px rgba(255, 223, 169, 0.05);
+}
+
+.scroll-card-glow {
+  position: absolute;
+  inset: -20%;
+  background: linear-gradient(120deg, transparent 0%, rgba(255, 224, 171, 0.02) 42%, rgba(255, 224, 171, 0.1) 50%, rgba(255, 224, 171, 0.02) 58%, transparent 100%);
+  transform: translateX(-180%) rotate(14deg);
+  opacity: 0;
+  pointer-events: none;
+  animation: panel-sheen linear both;
+  animation-timeline: view();
+  animation-range: entry 0% cover 34%;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .section-reveal {
+    animation-timeline: auto;
+    animation-range: normal;
+  }
+
+  .viewport-reveal,
+  .viewport-reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+
+  .scroll-panel::before,
+  .scroll-panel::after,
+  .scroll-card-glow {
+    animation-timeline: auto;
+    animation-range: normal;
+  }
+
+  .viewport-reveal.is-visible.scroll-panel {
+    animation: none;
+  }
+
+  .hero-cinema-video {
+    transform: translateZ(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-cinema-video {
+    object-position: 64% center;
+  }
+
+  .hero-cinema-soften {
+    backdrop-filter: blur(4px) saturate(0.9);
+    -webkit-backdrop-filter: blur(4px) saturate(0.9);
+    mask-image: radial-gradient(circle at 70% 44%, black 0%, black 54%, transparent 90%);
+    -webkit-mask-image: radial-gradient(circle at 70% 44%, black 0%, black 54%, transparent 90%);
+  }
+
+  .hero-cinema-grade {
+    background:
+      linear-gradient(90deg, rgba(3, 4, 5, 0.88) 0%, rgba(3, 4, 5, 0.62) 58%, rgba(3, 4, 5, 0.38) 100%),
+      linear-gradient(180deg, rgba(3, 4, 5, 0.56) 0%, rgba(3, 4, 5, 0.16) 30%, rgba(3, 4, 5, 0.66) 76%, #040506 100%);
   }
 }
