@@ -481,6 +481,7 @@ body {
 @media (max-width: 768px) {
   .hero-cinema-video {
     object-position: 48% center;
+    filter: blur(1.4px) saturate(0.92) contrast(1.02) brightness(0.86);
   }
 
   .hero-cinema-soften {
@@ -491,7 +492,7 @@ body {
 
   .hero-cinema-grade {
     background:
-      linear-gradient(90deg, rgba(3, 4, 5, 0.4) 0%, rgba(3, 4, 5, 0.2) 50%, rgba(3, 4, 5, 0.14) 100%),
-      linear-gradient(180deg, rgba(3, 4, 5, 0.28) 0%, rgba(3, 4, 5, 0.04) 28%, rgba(3, 4, 5, 0.34) 76%, rgba(3, 4, 5, 0.72) 100%);
+      linear-gradient(90deg, rgba(3, 4, 5, 0.52) 0%, rgba(3, 4, 5, 0.34) 50%, rgba(3, 4, 5, 0.26) 100%),
+      linear-gradient(180deg, rgba(3, 4, 5, 0.4) 0%, rgba(3, 4, 5, 0.14) 28%, rgba(3, 4, 5, 0.44) 76%, rgba(3, 4, 5, 0.78) 100%);
   }
 }
