@@ -474,19 +474,19 @@ body {
 
 @media (max-width: 768px) {
   .hero-cinema-video {
-    object-position: 64% center;
+    object-position: 48% center;
   }
 
   .hero-cinema-soften {
-    backdrop-filter: blur(4px) saturate(0.9);
-    -webkit-backdrop-filter: blur(4px) saturate(0.9);
-    mask-image: radial-gradient(circle at 70% 44%, black 0%, black 54%, transparent 90%);
-    -webkit-mask-image: radial-gradient(circle at 70% 44%, black 0%, black 54%, transparent 90%);
+    backdrop-filter: blur(3px) saturate(0.94);
+    -webkit-backdrop-filter: blur(3px) saturate(0.94);
+    mask-image: radial-gradient(circle at 50% 46%, black 0%, black 60%, transparent 92%);
+    -webkit-mask-image: radial-gradient(circle at 50% 46%, black 0%, black 60%, transparent 92%);
   }
 
   .hero-cinema-grade {
     background:
-      linear-gradient(90deg, rgba(3, 4, 5, 0.88) 0%, rgba(3, 4, 5, 0.62) 58%, rgba(3, 4, 5, 0.38) 100%),
-      linear-gradient(180deg, rgba(3, 4, 5, 0.56) 0%, rgba(3, 4, 5, 0.16) 30%, rgba(3, 4, 5, 0.66) 76%, #040506 100%);
+      linear-gradient(90deg, rgba(3, 4, 5, 0.74) 0%, rgba(3, 4, 5, 0.46) 58%, rgba(3, 4, 5, 0.3) 100%),
+      linear-gradient(180deg, rgba(3, 4, 5, 0.5) 0%, rgba(3, 4, 5, 0.12) 30%, rgba(3, 4, 5, 0.6) 76%, #040506 100%);
   }
 }

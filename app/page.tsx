@@ -82,6 +82,7 @@ function SignalGridBackdrop() {
         preload="auto"
         aria-hidden="true"
       >
+        <source media="(max-width: 768px)" src="/hero/pro-energy-grid.mp4" type="video/mp4" />
         <source src="/hero/pro-energy-grid-loop-hq.mp4" type="video/mp4" />
       </video>
       <div className="hero-cinema-soften absolute inset-0" />
@@ -143,11 +144,11 @@ export default function Page() {
 
             <div className="grid min-h-[660px] grid-cols-1 gap-10 pt-16">
               <div className="flex flex-col justify-between">
-                <div className="max-w-[690px]">
+                <div className="max-w-[740px]">
                   <div className="hero-reveal text-[11px] uppercase tracking-[0.34em] text-[#C79A57]">
                     консультации в энергетике
                   </div>
-                  <h2 className="hero-reveal mt-7 max-w-[690px] break-words font-[family:var(--font-display)] text-[clamp(2.1rem,9vw,5.55rem)] leading-[0.98] tracking-[-0.03em] text-[#FAF4EA] sm:leading-[0.92] sm:tracking-[-0.055em]">
+                  <h2 className="hero-reveal mt-7 max-w-[740px] break-words font-[family:var(--font-display)] text-[clamp(1.9rem,9vw,5.55rem)] leading-[0.98] tracking-[-0.03em] text-[#FAF4EA] sm:leading-[0.92] sm:tracking-[-0.055em]">
                     Решения
                     <br />
                     для энергоснабжения
