@@ -481,8 +481,8 @@ body {
 @media (max-width: 768px) {
   .hero-cinema-video {
     object-position: 48% center;
-    filter: blur(22px) saturate(1.05) contrast(1.02) brightness(0.92);
-    transform: scale(1.15) translateZ(0);
+    filter: blur(8px) saturate(1.1) contrast(1.05) brightness(0.98);
+    transform: scale(1.08) translateZ(0);
   }
 
   .hero-cinema-soften {
