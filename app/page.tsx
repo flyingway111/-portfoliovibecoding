@@ -80,6 +80,7 @@ function SignalGridBackdrop() {
         loop
         playsInline
         preload="auto"
+        poster="/hero/poster.jpg"
         aria-hidden="true"
       >
         <source media="(max-width: 768px)" src="/hero/pro-energy-grid.mp4" type="video/mp4" />

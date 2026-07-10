@@ -229,7 +229,13 @@ body {
 }
 
 .hero-cinema {
-  background: #030405;
+  background: #030405 url('/hero/poster.jpg') 57% center / cover no-repeat;
+}
+
+@media (max-width: 768px) {
+  .hero-cinema {
+    background-position: 48% center;
+  }
 }
 
 .hero-cinema-video {
